@@ -7,40 +7,38 @@ Plugin.create(:fubukiefsf_point) do
 	UserConfig[:fubukishiTripPoint] ||= 3500
 	UserConfig[:getFubukishiPoint] ||= 10000
 	UserConfig[:enkunUnfavPoint] ||= 500
-	#ms = "";
+	fp_mes = ""
+	
 	
 	on_appear do |mess|
 		mess.each do |mes|
 			if mes.message.to_s.include?("#ふぶき氏ポイント")
 				if UserConfig[:fubukishiPoint] <= 0
-					ms = operateFubukishiPoint(0,"")
+					fp_mes = operateFubukishiPoint(0,"")
  				else
-					ms = operateFubukishiPoint(UserConfig[:fubukishiPoint],"use")
+					fp_mes = operateFubukishiPoint(UserConfig[:fubukishiPoint],"use")
 				end
-				messageFubukishiPoint(ms)
+				messageFubukishiPoint(fp_mes)
 			end
 		end
 	end
+
 	on_unfavorite do |service,user,message|
 		if message.user.id == 159733526
-			ms = gainFubukishiPoint("enkun")
+			fp_mes = gainFubukishiPoint("enkun")
 		end
-		messageFubukishiPoint(ms)
+		
 	end
 	
 	on_favorite do |service,user,message|
-		if message.user.is_me?	
-			if message.user.id == 51428532 
-				ms = gainFubukishiPoint("fubukishi_fav")
-			elsif message.user.id == 15926668
-				ms = gainFubukishiPoint("toshi_a_fav")
-			end
+		if message.user.id == 51428532 
+			fp_mes = gainFubukishiPoint("fubukishi_fav")
+		elsif message.user.id == 15926668
+			fp_mes = gainFubukishiPoint("toshi_a_fav")
 		end
-		messageFubukishiPoint(ms)
+		messageFubukishiPoint(fp_mes)
 	end
 
-	#if(!ms)
-	#end
 	command(
 		:fubukiefsf_point,
 		name: "ふぶき氏ポイントを確認する",
@@ -52,11 +50,9 @@ Plugin.create(:fubukiefsf_point) do
 		Post.primary_service.update(:message => "ふぶき氏ポイントを#{UserConfig[:fubukishiPoint]}point持ってるよ" ,:system => UserConfig[:fubukiefsf_point_to_systemt] )
 	end
 	
-	def repairFubukishiPoint
-		Reserver.new("0:00"){
-			UserConfig[:fubukishiPoint] += UserConfig[:getFubukishiPoint]
-		}
-	end
+	Reserver.new("0:00"){
+		UserConfig[:fubukishiPoint] += UserConfig[:getFubukishiPoint]
+	}
 
 	def gainFubukishiPoint(mode)
 		if mode == "enkun"
@@ -73,14 +69,14 @@ Plugin.create(:fubukiefsf_point) do
 			UserConfig[:fubukishiPoint] += point
 		elsif action == "use"
 			if UserConfig[:fubukishiPoint] < UserConfig[:fubukishiTripPoint]
-				UserConfig[:fubukishiPoint] -= UserConfig[:fubukishiPoint]
+				UserConfig[:fubukishiPoint] = 0
 				return "全ポイント旅立ったよ"
 			else
 				UserConfig[:fubukishiPoint] -= point
 			end
 		else
 			return " Too Late..."
-		end	
+		end
 		return " #{action} #{point} points fubuki-shi point."
 	end
 	
