@@ -16,7 +16,7 @@ Plugin.create(:fubukiefsf_point) do
 				if UserConfig[:fubukishiPoint] <= 0
 					fp_mes = operateFubukishiPoint(0,"")
  				else
-					fp_mes = operateFubukishiPoint(UserConfig[:fubukishiPoint],"use")
+					fp_mes = operateFubukishiPoint(UserConfig[:fubukishiTripPoint],"use")
 				end
 				messageFubukishiPoint(fp_mes)
 			end
@@ -27,7 +27,7 @@ Plugin.create(:fubukiefsf_point) do
 		if message.user.id == 159733526
 			fp_mes = gainFubukishiPoint("enkun")
 		end
-		
+		messageFubukishiPoint(fp_mes)
 	end
 	
 	on_favorite do |service,user,message|
