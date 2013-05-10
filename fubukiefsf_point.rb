@@ -29,6 +29,8 @@ Plugin.create(:fubukiefsf_point) do
 			fp_mes = gainFubukishiPoint("enkun")
 		when 111241653
 			fp_mes = gainFubukishiPoint("k5342_enkun")
+		when 260294821
+			fp_mes = gainFubukishiPoint("a9_enkun")
 		end
 		messageFubukishiPoint(fp_mes)
 	end
@@ -61,13 +63,15 @@ Plugin.create(:fubukiefsf_point) do
 	def gainFubukishiPoint(mode)
 		case mode
 		when "enkun"
-			return self.operateFubukishiPoint(1000,"gain")
+			return self.operateFubukishiPoint(4000,"gain")
 		when "fubukishi_fav"
 			return self.operateFubukishiPoint(200,"gain")
 		when "toshi_a_fav"
 			return self.operateFubukishiPoint(500,"gain")	
 		when "k5342_enkun"
-			return self.operateFubukishiPoint(1500,"gain")	
+			return self.operateFubukishiPoint(1500,"gain")
+		when "a9_enkun"
+			return self.operateFubukishiPoint(2000,"gain")
 		end
 	end
 	 
