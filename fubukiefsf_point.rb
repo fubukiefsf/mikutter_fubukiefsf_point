@@ -24,16 +24,20 @@ Plugin.create(:fubukiefsf_point) do
 	end
 
 	on_unfavorite do |service,user,message|
-		if message.user.id == 159733526
+		case message.user.id 
+		when 159733526
 			fp_mes = gainFubukishiPoint("enkun")
+		when 111241653
+			fp_mes = gainFubukishiPoint("k5342_enkun")
 		end
 		messageFubukishiPoint(fp_mes)
 	end
 	
 	on_favorite do |service,user,message|
-		if message.user.id == 51428532 
+		case message.user.id 
+		when 51428532 
 			fp_mes = gainFubukishiPoint("fubukishi_fav")
-		elsif message.user.id == 15926668
+		when 15926668
 			fp_mes = gainFubukishiPoint("toshi_a_fav")
 		end
 		messageFubukishiPoint(fp_mes)
@@ -55,19 +59,23 @@ Plugin.create(:fubukiefsf_point) do
 	}
 
 	def gainFubukishiPoint(mode)
-		if mode == "enkun"
+		case mode
+		when "enkun"
 			return self.operateFubukishiPoint(1000,"gain")
-		elsif mode == "fubukishi_fav"
+		when "fubukishi_fav"
 			return self.operateFubukishiPoint(200,"gain")
-		elsif mode == "toshi_a_fav"
+		when "toshi_a_fav"
 			return self.operateFubukishiPoint(500,"gain")	
+		when "k5342_enkun"
+			return self.operateFubukishiPoint(1500,"gain")	
 		end
 	end
 	 
 	def operateFubukishiPoint(point,action)
-		if action == "gain"
+		case action 
+		when "gain"
 			UserConfig[:fubukishiPoint] += point
-		elsif action == "use"
+		when "use"
 			if UserConfig[:fubukishiPoint] < UserConfig[:fubukishiTripPoint]
 				UserConfig[:fubukishiPoint] = 0
 				return "全ポイント旅立ったよ"
