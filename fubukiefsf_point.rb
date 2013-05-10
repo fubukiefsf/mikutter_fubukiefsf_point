@@ -49,6 +49,10 @@ Plugin.create(:fubukiefsf_point) do
 		messageFubukishiPoint(fp_mes)
 	end
 
+	if UserConfig[:fubukishiPoint] >= 20000
+		Plugin.call(:lacolaco,true)
+		UserConfig[:fubukishiPoint] -= 20000
+	end
 	command(
 		:fubukiefsf_point,
 		name: "ふぶき氏ポイントを確認する",
