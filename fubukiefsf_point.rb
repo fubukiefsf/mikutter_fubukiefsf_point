@@ -33,6 +33,8 @@ Plugin.create(:fubukiefsf_point) do
 			fp_mes = gainFubukishiPoint("a9_enkun")
 		when 1216160988
 			fp_mes = gainFubukishiPoint("firstspring_enkun")
+		when 322116499
+			fp_mes = gainFubukishiPoint("pn1y_enkun")
 		end
 		messageFubukishiPoint(fp_mes)
 	end
@@ -75,6 +77,8 @@ Plugin.create(:fubukiefsf_point) do
 		when "a9_enkun"
 			return self.operateFubukishiPoint(2000,"gain")
 		when "firstspring_enkun"
+			return self.operateFubukishiPoint(1200,"gain")	
+		when "pn1y_enkun"
 			return self.operateFubukishiPoint(1200,"gain")	
 		end
 	end
