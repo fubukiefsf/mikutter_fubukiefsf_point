@@ -21,6 +21,11 @@ Plugin.create(:fubukiefsf_point) do
 				messageFubukishiPoint(fp_mes)
 			end
 		end
+		if UserConfig[:fubukishiPoint] >= 20000
+			Plugin.call(:lacolaco,true)
+			UserConfig[:fubukishiPoint] -= 20000
+		end
+
 	end
 
 	on_unfavorite do |service,user,message|
@@ -49,10 +54,6 @@ Plugin.create(:fubukiefsf_point) do
 		messageFubukishiPoint(fp_mes)
 	end
 
-	if UserConfig[:fubukishiPoint] >= 20000
-		Plugin.call(:lacolaco,true)
-		UserConfig[:fubukishiPoint] -= 20000
-	end
 	command(
 		:fubukiefsf_point,
 		name: "ふぶき氏ポイントを確認する",
