@@ -62,7 +62,7 @@ Plugin.create(:fubukiefsf_point) do
 		role: :window
 	)do |opt|
 		messageFubukishiPoint("You have #{UserConfig[:fubukishiPoint]} fubuki-shi points! Enjoy!")			
-		Post.primary_service.update(:message => "ふぶき氏ポイントを#{UserConfig[:fubukishiPoint]}point持ってるよ" ,:system => UserConfig[:fubukiefsf_point_to_systemt] )
+		Post.primary_service.update(:message => "ふぶき氏ポイントを#{UserConfig[:fubukishiPoint]}point持ってるよ" ,:system => UserConfig[:fubukiefsf_point_to_system] )
 	end
 	
 	Reserver.new("0:00"){
